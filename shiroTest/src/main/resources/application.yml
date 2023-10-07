@@ -1,0 +1,27 @@
+server:
+  port: 9091
+
+# thymeleaf 配置
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+
+# 数据库
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: zhaojf$2023
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl.auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      dialect: com.wmyskxz.demo.shiro.config.MySQLConfig
