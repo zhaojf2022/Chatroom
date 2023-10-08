@@ -3,10 +3,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 	<groupId>com.example</groupId>
-	<artifactId>chatDemo</artifactId>
+	<artifactId>chatdemo</artifactId>
 	<packaging>war</packaging>
 	<version>0.1</version>
-	<name>chatDemo</name>
+	<name>chatdemo</name>
 
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -165,7 +165,7 @@
     </dependencies>
 
 	<build>
-		<finalName>chatDemo</finalName>
+		<finalName>chatdemo</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
     <!-- 扫描关于Netty Websocket的包 -->
-    <context:component-scan base-package="chatDemo.web"/>
+    <context:component-scan base-package="chatdemo.web"/>
     
     <!-- 把Netty的一些类服务器注册到Spring，方便处理和扩展 -->
     <!-- 用于处理客户端连接请求 -->
@@ -21,7 +21,7 @@
 	<!-- 服务器启动引导类 -->
 	<bean id="serverBootstrap" class="io.netty.bootstrap.ServerBootstrap" scope="prototype"/>
 	<!-- 自定义的Netty Websocket服务器 -->
-	<bean id="webSocketServer" class="chatDemo.web.WebSocketServer">
+	<bean id="webSocketServer" class="chatdemo.web.WebSocketServer">
 		<property name="port" value="${websocket.server.port}"/>
 		<property name="childChannelHandler" ref="webSocketChildChannelHandler" />
 	</bean>

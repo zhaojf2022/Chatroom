@@ -9,9 +9,9 @@
     
            
  	<!-- 注册 @Component，@Service，@Reposity到Spring容器，同时扫描 @PostConstruct，@PreDestroy -->
- 	<context:component-scan base-package="chatDemo.common"/>
- 	<context:component-scan base-package="chatDemo.dao"/>
- 	<context:component-scan base-package="chatDemo.service"/>
+ 	<context:component-scan base-package="chatdemo.common"/>
+ 	<context:component-scan base-package="chatdemo.dao"/>
+ 	<context:component-scan base-package="chatdemo.service"/>
 	
 	<bean id="configProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">

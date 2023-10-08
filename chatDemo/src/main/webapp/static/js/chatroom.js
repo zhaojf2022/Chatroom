@@ -77,7 +77,7 @@
                 };
                 socket.send(JSON.stringify(data));
             } else {
-                alert("Websocket连接没有开启！");
+                alert("Websocket连接初始化没有开启！");
             }
         },
         
