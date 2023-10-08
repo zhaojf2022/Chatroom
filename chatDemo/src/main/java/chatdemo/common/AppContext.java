@@ -36,9 +36,6 @@ public class AppContext {
     @PostConstruct
     public void init() {
         //使用线程池创建新的线线程
-//        ExecutorService executor = Executors.newCachedThreadPool();
-////        executor.execute(webSocketServer);
-//        nettyThread = executor.execute(webSocketServer);
         nettyThread = new Thread(webSocketServer);
         logger.info("开启独立线程，启动Netty WebSocket服务器...");
         nettyThread.start();

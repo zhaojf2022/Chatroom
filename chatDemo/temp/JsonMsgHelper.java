@@ -1,4 +1,4 @@
-package chatDemo.util;
+package chatdemo.util;
 
 import java.io.IOException;
 import java.io.Writer;
