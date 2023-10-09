@@ -21,7 +21,7 @@
 	<description>Spring-web MVC配置</description>
 	
 	<!-- MVC负责扫描Controller -->
-	<context:component-scan base-package="chatdemo.controller"/>
+	<context:component-scan base-package="chatdemo.web.controller"/>
 	
     <!-- 视图解释类 -->
     <bean name="viewResolver"
@@ -89,19 +89,26 @@
 <!--        </property>-->
 <!--    </bean>-->
     
-    <!-- 用户认证拦截器 -->
+    <!--配置拦截器-->
     <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <!--配置自定义拦截器-->
         <mvc:interceptor>
+            <!--拦截-->
             <mvc:mapping path="/chatdemo/**" />
-            <bean class="chatdemo.web.UserAuthInteceptor" />
+            <bean class="chatdemo.web.interceptor.UserAuthInteceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
+
 	
 	<!-- 配置文件上传 -->
     <bean id="multipartResolver"
-        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="maxUploadSize" value="10485760"/>
-        <property name="maxInMemorySize" value="40960"/>
+        class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+<!--        <property name="defaultEncoding" value="UTF-8"/>-->
+<!--        <property name="maxUploadSize" value="10485760"/>-->
+<!--        <property name="maxInMemorySize" value="40960"/>-->
     </bean>
+    <!-- 配置文件上传的 Controller -->
+    <bean id="fileUploadController" class="chatdemo.web.controller.FileUploadController"/>
+
 </beans>

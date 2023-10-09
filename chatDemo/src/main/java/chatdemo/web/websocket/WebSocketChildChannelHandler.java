@@ -1,4 +1,4 @@
-package chatdemo.web;
+package chatdemo.web.websocket;
 
 import javax.annotation.Resource;
 

@@ -1,7 +1,6 @@
-package chatdemo.controller;
+package chatdemo.web.controller;
 
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import chatdemo.service.impl.FileUploadServiceImpl;
@@ -12,11 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import chatdemo.vo.ResponseJson;
 import chatdemo.util.Constant;
-import org.springframework.web.multipart.MultipartFile;
-
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
+@RequestMapping("/chatroom")
 public class ChatroomController {
 
     @Autowired
@@ -30,7 +27,7 @@ public class ChatroomController {
      * @return String
      */
     @CrossOrigin
-    @GetMapping("/chatroom")
+    @GetMapping("toChatroom")
     public String toChatroom() {
         return "chatroom";
     }
@@ -41,7 +38,7 @@ public class ChatroomController {
      * @return  ResponseJson
      */
     @CrossOrigin
-    @RequestMapping(value = "/chatroom/get_userinfo", method = RequestMethod.POST)
+    @RequestMapping(value = "get_userinfo", method = RequestMethod.POST)
     @ResponseBody
     public ResponseJson getUserInfo(HttpSession session) {
         Object userId = session.getAttribute(Constant.USER_TOKEN);

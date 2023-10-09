@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import chatdemo.dao.GroupInfoDao;
 import chatdemo.dao.UserInfoDao;
-import chatdemo.web.WebSocketServer;
+import chatdemo.web.websocket.WebSocketServer;
 
 @Component
 @Scope("singleton")

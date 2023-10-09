@@ -1,4 +1,4 @@
-package chatdemo.web;
+package chatdemo.web.websocket;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.FixedRecvByteBufAllocator;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.Future;
+import org.springframework.stereotype.Service;
 
 /**
  * 描述: Netty WebSocket服务器，使用独立的线程启动
@@ -19,6 +20,8 @@ import io.netty.util.concurrent.Future;
  * @version 1.0
  * @date 2018年5月18日 上午11:22:51
  */
+
+@Service
 public class WebSocketServer implements Runnable{
 
     private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);

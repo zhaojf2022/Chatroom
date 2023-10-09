@@ -1,4 +1,4 @@
-package chatdemo.controller;
+package chatdemo.web.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import javax.servlet.http.HttpServletRequest;

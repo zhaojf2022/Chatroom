@@ -1,4 +1,4 @@
-package chatdemo.controller;
+package chatdemo.web.controller.common;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -101,7 +101,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ResponseJson methodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException exception) {
         String supportedMethods = exception.getSupportedHttpMethods().stream()
-                .map(Enum::toString)
+                .map(method -> method.toString())
                 .collect(Collectors.joining("/"));
         
         String msg = "请求方法不合法,请使用方法" + supportedMethods;

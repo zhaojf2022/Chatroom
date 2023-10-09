@@ -1,9 +1,10 @@
-package chatdemo.web;
+package chatdemo.web.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,15 +20,14 @@ public class UserAuthInteceptor implements HandlerInterceptor {
      * @return boolean
      * @throws Exception 异常
      */
-    @Override
+
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-
         //从请求会话中获取用户令牌，如果没有令牌则跳转到登录页
         HttpSession session = request.getSession();
         Object userToken = session.getAttribute(Constant.USER_TOKEN);
         if (userToken == null) {
-            /*JsonMsgHelper.writeJson(response, new ResponseJson(HttpStatus.FORBIDDEN).setMsg("请登录"), 
+            /*JsonMsgHelper.writeJson(response, new ResponseJson(HttpStatus.FORBIDDEN).setMsg("请登录"),
                     HttpStatus.FORBIDDEN);*/
             response.sendRedirect("login");
             return false;
@@ -43,12 +43,12 @@ public class UserAuthInteceptor implements HandlerInterceptor {
      * @param modelAndView ModelAndView
      * @throws Exception 异常
      */
-    @Override
+
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
         // 在响应中添加头部信息，解决跨域问题
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials","true");     
+        response.setHeader("Access-Control-Allow-Credentials","true");
     }
 
     /**
@@ -58,10 +58,10 @@ public class UserAuthInteceptor implements HandlerInterceptor {
      * @param handler Object
      * @throws Exception 异常
      */
-    @Override
+
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        
+
     }
 
 }

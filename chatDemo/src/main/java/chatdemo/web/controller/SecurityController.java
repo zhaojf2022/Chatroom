@@ -1,4 +1,4 @@
-package chatdemo.controller;
+package chatdemo.web.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import chatdemo.vo.ResponseJson;
-import chatdemo.service.SecurityService;
 
 @Controller
 public class SecurityController {
@@ -20,14 +19,14 @@ public class SecurityController {
     SecurityServiceImpl securityService;
 
     @CrossOrigin
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    @GetMapping("/tologin")
     public String toLogin() {
         logger.info("跳转到登录页面");
         return "login";
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping("/login")
     @ResponseBody
     public ResponseJson login(HttpSession session,
             @RequestParam String username,
@@ -37,7 +36,7 @@ public class SecurityController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @PostMapping("/logout")
     @ResponseBody
     public ResponseJson logout(HttpSession session) {
 
