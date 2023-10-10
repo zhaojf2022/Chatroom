@@ -90,8 +90,8 @@ public class WebSocketServer implements Runnable{
         try {
             bossGroupFuture.await();
             workerGroupFuture.await();
-        } catch (InterruptedException ignore) {
-            ignore.printStackTrace();
+        } catch (InterruptedException exception) {
+			exception.printStackTrace();
         }
 	}
 	

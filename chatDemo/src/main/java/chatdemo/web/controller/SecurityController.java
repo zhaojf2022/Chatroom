@@ -1,6 +1,6 @@
 package chatdemo.web.controller;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import chatdemo.service.impl.SecurityServiceImpl;
 import org.slf4j.Logger;

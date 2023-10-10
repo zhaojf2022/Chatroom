@@ -16,7 +16,8 @@ import chatdemo.web.websocket.WebSocketServer;
 @Component
 @Scope("singleton")
 public class AppContext {
-    private final Logger logger = LoggerFactory.getLogger(AppContext.class);
+
+    private final Logger log = LoggerFactory.getLogger(AppContext.class);
 
     @Autowired
     private WebSocketServer webSocketServer;
@@ -37,11 +38,11 @@ public class AppContext {
     public void init() {
         //使用线程池创建新的线线程
         nettyThread = new Thread(webSocketServer);
-        logger.info("开启独立线程，启动Netty WebSocket服务器...");
+        log.info("开启独立线程，启动Netty WebSocket服务器...");
         nettyThread.start();
-        logger.info("加载用户数据...");
+        log.info("加载用户数据...");
         userInfoDao.loadUserInfo();
-        logger.info("加载用户交流群数据...");
+        log.info("加载用户交流群数据...");
         groupDao.loadGroupInfo();
     }
 
@@ -53,10 +54,10 @@ public class AppContext {
     @SuppressWarnings("deprecation")
     @PreDestroy
     public void close() {
-        logger.info("正在释放Netty Websocket相关连接...");
+        log.info("正在释放Netty Websocket相关连接...");
         webSocketServer.close();
-        logger.info("正在关闭Netty Websocket服务器线程...");
+        log.info("正在关闭Netty Websocket服务器线程...");
         nettyThread.stop();
-        logger.info("系统成功关闭！");
+        log.info("系统成功关闭！");
     }
 }

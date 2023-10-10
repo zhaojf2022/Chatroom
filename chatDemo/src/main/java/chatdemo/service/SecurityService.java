@@ -1,6 +1,6 @@
 package chatdemo.service;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import chatdemo.vo.ResponseJson;
 

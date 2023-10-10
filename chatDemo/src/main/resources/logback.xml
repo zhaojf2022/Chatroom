@@ -1,0 +1,12 @@
+<configuration>
+    <!-- Logback configuration -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/chatdemo.log</file> <!-- 指定日志文件路径和名称 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

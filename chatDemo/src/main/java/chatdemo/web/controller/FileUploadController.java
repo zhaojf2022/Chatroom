@@ -1,7 +1,7 @@
 package chatdemo.web.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class FileUploadController {
      * 文件上传传
      * @param file MultipartFile
      * @param request HttpServletRequest
-     * @return
+     * @return ResponseJson
      */
     @CrossOrigin
     @RequestMapping(value = "/upload", method = POST)

@@ -33,7 +33,8 @@
 
     <!-- 设置不拦截静态文件 -->
     <mvc:resources location="/WEB-INF/" mapping="/WEB-INF/**" />
-    <mvc:resources location="/static/" mapping="/static/**/**" />
+    <mvc:resources location="/static/" mapping="/static/**" />
+    <mvc:resources location="/static/css/" mapping="/static/css/**" />
     <mvc:resources location="/uploadfile/" mapping="/uploadfile/**" />
 
     <!-- 使用缓存mvc注解配置 -->
@@ -95,7 +96,7 @@
         <!--配置自定义拦截器-->
         <mvc:interceptor>
             <!--拦截-->
-            <mvc:mapping path="/chatdemo/**" />
+            <mvc:mapping path="/chatdemo/**"/>
             <bean class="chatdemo.web.interceptor.UserAuthInteceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

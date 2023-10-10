@@ -1,7 +1,7 @@
     function setUserInfo() {
         $.ajax({
             type : 'POST',
-            url : 'chatroom/get_userinfo',
+            url : 'chatroom/getUserInfo',
             dataType: 'json',
             async : true,
                 success: function(data) {

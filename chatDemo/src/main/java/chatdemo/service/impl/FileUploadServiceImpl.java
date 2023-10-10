@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +18,7 @@ import chatdemo.util.FileUtils;
 @Service
 public class FileUploadServiceImpl implements FileUploadService{
 
-    private final static String SERVER_URL_PREFIX = "http://localhost:13522/chatdemo/";
+    private final static String SERVER_URL_PREFIX = "http://localhost:12522/chatdemo/";
     private final static String FILE_STORE_PATH = "uploadFiles";
     
     @Override
