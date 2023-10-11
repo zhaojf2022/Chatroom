@@ -34,11 +34,7 @@ public class SecurityServiceImpl implements SecurityService{
             return new ResponseJson().error("密码不正确");
         }
         session.setAttribute(Constant.USER_TOKEN, userInfo.getUserId());
-        ResponseJson response = new ResponseJson();
-        LOGGER.info("创建响应对象");
-        response.success();
-        return response;
-        //return new ResponseJson().success();
+        return new ResponseJson().success();
     }
 
     @Override

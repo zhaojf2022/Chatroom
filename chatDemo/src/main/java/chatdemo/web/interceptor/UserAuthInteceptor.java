@@ -21,6 +21,7 @@ public class UserAuthInteceptor implements HandlerInterceptor {
      * @throws Exception 异常
      */
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         //从请求会话中获取用户令牌，如果没有令牌则跳转到登录页
@@ -44,6 +45,7 @@ public class UserAuthInteceptor implements HandlerInterceptor {
      * @throws Exception 异常
      */
 
+    @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
         // 在响应中添加头部信息，解决跨域问题
@@ -59,6 +61,7 @@ public class UserAuthInteceptor implements HandlerInterceptor {
      * @throws Exception 异常
      */
 
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
 

@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import chatdemo.vo.ResponseJson;
 import chatdemo.util.Constant;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+@CrossOrigin
 @Controller
+@RequestMapping("/chatroom")
 public class ChatroomController {
 
     @Autowired
@@ -24,14 +25,14 @@ public class ChatroomController {
     @Autowired
     private FileUploadServiceImpl fileUploadService;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(ChatroomController.class);
 
    /**
      * 描述：登录成功后，调用此接口进行页面跳转
      * @return String
      */
     @CrossOrigin
-    @GetMapping("/chatroom")
+    @GetMapping("tochatroom")
     public String toChatroom() {
         logger.info("跳转到聊天室页面");
         return "chatroom";
@@ -43,7 +44,7 @@ public class ChatroomController {
      * @return  ResponseJson
      */
     @CrossOrigin
-    @PostMapping("/chatroom/getUserInfo")
+    @PostMapping("getUserInfo")
     @ResponseBody
     public ResponseJson getUserInfo(HttpSession session) {
         Object userId = session.getAttribute(Constant.USER_TOKEN);

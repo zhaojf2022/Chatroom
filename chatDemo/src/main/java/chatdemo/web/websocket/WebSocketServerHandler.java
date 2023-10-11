@@ -26,7 +26,7 @@ import chatdemo.util.Constant;
 @Sharable
 public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketServerHandler.class);
+    private static Logger log = LoggerFactory.getLogger(WebSocketServerHandler.class);
     
     @Autowired
     private ChatService chatService;
@@ -36,49 +36,50 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
      *      这里主要是处理WebSocket请求
      */
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame msg) throws Exception {
-        handlerWebSocketFrame(ctx, msg);
-    }
-    
-    /**
-     * 描述：处理WebSocketFrame
-     * @param ctx
-     * @param frame
-     * @throws Exception
-     */
-    private void handlerWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
+
         // 关闭请求
         if (frame instanceof CloseWebSocketFrame) {
             WebSocketServerHandshaker handshaker = 
                     Constant.webSocketHandshakerMap.get(ctx.channel().id().asLongText());
             if (handshaker == null) {
+                log.error("WebSocket关闭请求握手错误：不存在的客户端连接");
                 sendErrorMessage(ctx, "不存在的客户端连接！");
             } else {
+                log.debug("WebSocket关闭请求握手成功");
                 handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
             }
             return;
         }
         // ping请求
         if (frame instanceof PingWebSocketFrame) {
+            log.debug("收到WebSocket Ping请求");
             ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
             return;
         }
         // 只支持文本格式，不支持二进制消息
         if (!(frame instanceof TextWebSocketFrame)) {
+            log.debug("收到WebSocket 非文本消息请求");
             sendErrorMessage(ctx, "仅支持文本(Text)格式，不支持二进制消息");
         }
 
         // 客服端发送过来的消息
-        String request = ((TextWebSocketFrame)frame).text();
-        LOGGER.info("服务端收到新信息：" + request);
+        String request = null;
+        if (frame instanceof TextWebSocketFrame) {
+            log.debug("收到 WebSocket 文本消息请求");
+            request = ((TextWebSocketFrame)frame).text();
+        }
+
+        log.info("服务端收到新信息：" + request);
         JSONObject param = null;
         try {
             param = JSONObject.parseObject(request);
         } catch (Exception e) {
             sendErrorMessage(ctx, "JSON字符串转换出错！");
-            e.printStackTrace();
+            log.error("JSON字符串转换出错" + e.getMessage());
         }
         if (param == null) {
+            log.info("请求消息中的参数为空");
             sendErrorMessage(ctx, "参数为空！");
             return;
         }
@@ -111,6 +112,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.debug("聊天不活跃，删除上下文");
         chatService.remove(ctx);
     }
    
@@ -119,6 +121,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        log.error("WebSocket消息处理异常：" + cause.getMessage());
         cause.printStackTrace();
         ctx.close();
     }

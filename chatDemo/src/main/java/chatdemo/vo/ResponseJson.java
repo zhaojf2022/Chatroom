@@ -18,7 +18,7 @@ public class ResponseJson extends HashMap<String, Object> {
     private static final Integer ERROR_STATUS = -1;
     private static final String SUCCESS_MSG = "正常";
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(ResponseJson.class);
     
     public ResponseJson() {
         super();

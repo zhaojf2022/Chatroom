@@ -18,7 +18,7 @@ import chatdemo.util.FileUtils;
 @Service
 public class FileUploadServiceImpl implements FileUploadService{
 
-    private final static String SERVER_URL_PREFIX = "http://localhost:12522/chatdemo/";
+    private final static String SERVER_URL_PREFIX = "http://http://47.95.235.8/:12522/chatdemo/";
     private final static String FILE_STORE_PATH = "uploadFiles";
     
     @Override

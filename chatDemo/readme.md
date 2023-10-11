@@ -109,7 +109,7 @@ public class WebSocketServer implements Runnable{
 
 ## 4. 效果及操作演示
 ### 4.1 登录操作
-登录入口为：http://localhost:8080/WebSocket/login 或 http://localhost:8080/WebSocket/
+登录入口为：http://47.95.235.8/:12522/chatdemo/tologin 或 http://47.95.235.8/:12522/chatdemo/
 当前系统用户固定为9个，群组1个，包括9人用户。
 * 用户1  用户名：Member001  密码：001
 * 用户2  用户名：Member002  密码：002

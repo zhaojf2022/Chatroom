@@ -14,14 +14,15 @@ import chatdemo.vo.ResponseJson;
 @Controller
 public class SecurityController {
 
-    private final Logger logger = LoggerFactory.getLogger(SecurityController.class);
+    private final Logger log = LoggerFactory.getLogger(SecurityController.class);
+
     @Autowired
     SecurityServiceImpl securityService;
 
     @CrossOrigin
     @GetMapping("/tologin")
     public String toLogin() {
-        logger.info("跳转到登录页面");
+        log.info("跳转到登录页面");
         return "login";
     }
 
@@ -31,7 +32,7 @@ public class SecurityController {
     public ResponseJson login(HttpSession session,
             @RequestParam String username,
             @RequestParam String password) {
-        logger.info("收到登录请求：username= " + username + ". password= " + password);
+        log.info("收到登录请求：username= " + username + ". password= " + password);
         return securityService.login(username, password, session);
     }
 
@@ -40,7 +41,7 @@ public class SecurityController {
     @ResponseBody
     public ResponseJson logout(HttpSession session) {
 
-        logger.info("用户登出：username= " + session.getAttribute("username") );
+        log.info("用户登出：username= " + session.getAttribute("username") );
         return securityService.logout(session);
     }
 }
