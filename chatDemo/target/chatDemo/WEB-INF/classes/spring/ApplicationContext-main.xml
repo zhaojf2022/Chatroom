@@ -8,23 +8,9 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
  	<!-- 注册 @Component，@Service，@Reposity到Spring容器，同时扫描 @PostConstruct，@PreDestroy -->
- 	<context:component-scan base-package="chatdemo.common"/>
+	<!--扫描指定包中的组件-->
+	<context:component-scan base-package="chatdemo.common"/>
  	<context:component-scan base-package="chatdemo.dao"/>
  	<context:component-scan base-package="chatdemo.service"/>
-
-    <!-- 定义配置文件的 bean -->
-	<bean id="configProperties"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="locations">
-			<list>
-				<value>classpath:system.properties</value>
-			</list>
-		</property>
-	</bean>
-
-   <!-- 引入自定义的配置文件-->
-   <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
-        <property name="properties" ref="configProperties" />
-   </bean> 
 
 </beans>

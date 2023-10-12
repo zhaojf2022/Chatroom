@@ -22,8 +22,8 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.util.CharsetUtil;
 import chatdemo.util.Constant;
 
-@Component // 注入到spring容器
-@Sharable // 标记为一个可以被多个channel共享的handler
+@Component
+@Sharable // 标记这是一个可以被多个channel共享的handler
 public class HttpRequestHandler extends SimpleChannelInboundHandler<Object> {
 
     private static Logger log = LoggerFactory.getLogger(HttpRequestHandler.class);

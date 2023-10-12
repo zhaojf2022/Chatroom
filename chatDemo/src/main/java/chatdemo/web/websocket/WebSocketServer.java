@@ -34,18 +34,16 @@ public class WebSocketServer implements Runnable{
 	private EventLoopGroup workerGroup;
 	@Autowired
 	private ServerBootstrap serverBootstrap;
-	
 	@Getter
-	private int port;
+	private static final int PORT = 3333;
 
 	@Getter
 	@Autowired
 	private WebSocketChildChannelHandler childChannelHandler;
+
 	private ChannelFuture serverChannelFuture;
 	
-	public WebSocketServer() {
-	    
-	}
+	public WebSocketServer() {}
 
 	@Override
 	public void run() {
@@ -71,14 +69,18 @@ public class WebSocketServer implements Runnable{
 			   .childOption(ChannelOption.SO_KEEPALIVE, true)
 				//配置固定长度接收缓存区分配器
 			   .childOption(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(592048))
+
 				//绑定I/O事件的处理类,WebSocketChildChannelHandler中定义
 			   .childHandler(childChannelHandler);
 
 			long end = System.currentTimeMillis();
-	        log.info("Netty Websocket服务器启动完成，耗时 " + (end - begin) + " ms，已绑定端口 " + port + " 阻塞式等候客户端连接");
-			// 同步阻塞式绑定端口
+	        log.info("Netty Websocket服务器启动完成，耗时 " + (end - begin) + " ms，已绑定端口 " + PORT + " 阻塞式等候客户端连接");
 
-			serverChannelFuture = serverBootstrap.bind(port).sync();
+			// 通过将服务器引导类绑定到指定端口，来创建服务器通道，并同步阻塞等待通道绑定完成
+			serverChannelFuture = serverBootstrap.bind(PORT).sync();
+
+			// 关闭通道并等待通道关闭完成（才能继续执行其后的代码）
+			//serverChannelFuture.channel().closeFuture().sync();
 
 		} catch (Exception e) {
 		    log.info("创建Netty进程异常：" + Arrays.toString(e.getStackTrace()));
@@ -114,10 +116,6 @@ public class WebSocketServer implements Runnable{
 
 	public void setChildChannelHandler(WebSocketChildChannelHandler childChannelHandler) {
         this.childChannelHandler = childChannelHandler;
-    }
-
-	public void setPort(int port) {
-        this.port = port;
     }
 
 }

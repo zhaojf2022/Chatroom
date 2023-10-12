@@ -1,5 +1,7 @@
+chatdemo/web/websocket/MyNettyClient.class
 chatdemo/web/websocket/WebSocketServerHandler.class
 chatdemo/dao/impl/GroupInfoDaoImpl.class
+chatdemo/web/websocket/MyClientHandler.class
 chatdemo/web/controller/ChatroomController.class
 chatdemo/web/websocket/HttpRequestHandler.class
 chatdemo/util/FileUtils.class
@@ -8,6 +10,7 @@ chatdemo/config/CrosConfig.class
 chatdemo/service/impl/ChatServiceImpl.class
 chatdemo/service/SecurityService.class
 chatdemo/web/websocket/WebSocketChildChannelHandler.class
+chatdemo/web/websocket/MyNettyClient$1.class
 chatdemo/util/Constant.class
 chatdemo/web/interceptor/UserAuthInteceptor.class
 chatdemo/entity/GroupInfo.class

@@ -68,12 +68,12 @@ public class UserInfoDaoImpl implements UserInfoDao {
     }
 
     @Override
-    public UserInfo getByUsername(String username) {
+    public UserInfo getUserInfoByname(String username) {
         return Constant.userInfoMap.get(username);
     }
     
     @Override
-    public UserInfo getByUserId(String userId) {
+    public UserInfo getUserInfoById(String userId) {
         UserInfo result = null;
         Iterator<Entry<String, UserInfo>> iterator = Constant.userInfoMap.entrySet().iterator();
         while (iterator.hasNext()) {

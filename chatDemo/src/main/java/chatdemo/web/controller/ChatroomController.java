@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import chatdemo.vo.ResponseJson;
 import chatdemo.util.Constant;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 @CrossOrigin
 @Controller
-@RequestMapping("/chatroom")
 public class ChatroomController {
 
     @Autowired
@@ -32,7 +31,7 @@ public class ChatroomController {
      * @return String
      */
     @CrossOrigin
-    @GetMapping("tochatroom")
+    @GetMapping("/chatroom")
     public String toChatroom() {
         logger.info("跳转到聊天室页面");
         return "chatroom";
@@ -44,10 +43,13 @@ public class ChatroomController {
      * @return  ResponseJson
      */
     @CrossOrigin
-    @PostMapping("getUserInfo")
+    @PostMapping("/chatroom/getUserInfo")
     @ResponseBody
     public ResponseJson getUserInfo(HttpSession session) {
+
+        // 获取请求信息中 ‘userId" 键的值
         Object userId = session.getAttribute(Constant.USER_TOKEN);
-        return userInfoService.getByUserId((String)userId);
+        // 根据ID查询到用户信息后放入响应对象中返回
+        return userInfoService.getUserInofById((String)userId);
     }
 }

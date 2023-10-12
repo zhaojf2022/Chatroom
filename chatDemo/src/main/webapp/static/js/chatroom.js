@@ -7,6 +7,7 @@
                 success: function(data) {
                     console.log("获取用户信息...");
                     if (data.status === 200) {
+                        console.log(data);
                         var userInfo = data.data.userInfo;
                         userId = userInfo.userId;
                         $("#username").html(userInfo.username);
@@ -66,6 +67,8 @@
     }
     
     var ws = {
+
+        // 用户登记到在线用户表
         register: function() {
             if (!window.WebSocket) {
                   return;
@@ -77,10 +80,11 @@
                 };
                 socket.send(JSON.stringify(data));
             } else {
-                alert("Websocket连接初始化没有开启！");
+                alert("注册操作：Websocket连接没有开启！");
             }
         },
-        
+
+        // 单条消息发送
         singleSend: function(fromUserId, toUserId, content) {
             if (!window.WebSocket) {
                   return;
@@ -94,10 +98,11 @@
                 };
                 socket.send(JSON.stringify(data));
             } else {
-                alert("Websocket连接没有开启！");
+                alert("单条消息发送：Websocket连接没有开启！");
             }
         },
-        
+
+        // 群发
         groupSend: function(fromUserId, toGroupId, content) {
             if (!window.WebSocket) {
                   return;
@@ -111,10 +116,11 @@
                 };
                 socket.send(JSON.stringify(data));
             } else {
-                alert("Websocket连接没有开启！");
+                alert("群发消息：Websocket连接没有开启！");
             }
         },
-        
+
+        // 文件消息单发
         fileMsgSingleSend: function(fromUserId, toUserId, originalFilename, fileUrl, fileSize) {
             if (!window.WebSocket) {
                   return;
@@ -130,10 +136,11 @@
                 };
                 socket.send(JSON.stringify(data));
             } else {
-                alert("Websocket连接没有开启！");
+                alert("发送单个文件：Websocket连接没有开启！");
             }
         },
-        
+
+        // 发送多个文件
         fileMsgGroupSend: function(fromUserId, toGroupId, originalFilename, fileUrl, fileSize) {
             if (!window.WebSocket) {
                   return;
@@ -149,7 +156,7 @@
                 };
                 socket.send(JSON.stringify(data));
             } else {
-                alert("Websocket连接没有开启！");
+                alert("发送多个文件：Websocket连接没有开启！");
             }
         },
         

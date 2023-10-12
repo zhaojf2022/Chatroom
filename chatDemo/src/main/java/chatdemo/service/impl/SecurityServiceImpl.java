@@ -26,7 +26,7 @@ public class SecurityServiceImpl implements SecurityService{
     
     @Override
     public ResponseJson login(String username, String password, HttpSession session) {
-        UserInfo userInfo = userInfoDao.getByUsername(username);
+        UserInfo userInfo = userInfoDao.getUserInfoByname(username);
         if (userInfo == null) {
             return new ResponseJson().error("不存在该用户名");
         }

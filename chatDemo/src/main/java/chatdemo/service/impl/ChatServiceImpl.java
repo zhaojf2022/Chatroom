@@ -4,9 +4,9 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import chatdemo.dao.impl.GroupInfoDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -20,13 +20,14 @@ import chatdemo.service.ChatService;
 import chatdemo.util.ChatType;
 import chatdemo.util.Constant;
 
+import javax.annotation.Resource;
+
 @Service
 public class ChatServiceImpl implements ChatService{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ChatServiceImpl.class);
-            
-    @Autowired
-    private GroupInfoDao groupDao;
+    private static final Logger log = LoggerFactory.getLogger(ChatServiceImpl.class);
+
+    private final GroupInfoDaoImpl groupDao = new GroupInfoDaoImpl();
     
     @Override
     public void register(JSONObject param, ChannelHandlerContext ctx) {
@@ -36,7 +37,7 @@ public class ChatServiceImpl implements ChatService{
                 .setData("type", ChatType.REGISTER)
                 .toString();
         sendMessage(ctx, responseJson);
-        LOGGER.info(MessageFormat.format("userId为 {0} 的用户登记到在线用户表，当前在线人数为：{1}"
+        log.info(MessageFormat.format("userId为 {0} 的用户登记到在线用户表，当前在线人数为：{1}"
                 , userId, Constant.onlineUserMap.size()));
     }
 
@@ -67,7 +68,7 @@ public class ChatServiceImpl implements ChatService{
         String fromUserId = (String)param.get("fromUserId");
         String toGroupId = (String)param.get("toGroupId");
         String content = (String)param.get("content");
-        
+
         /*String userId = (String)param.get("userId");
         String fromUsername = (String)param.get("fromUsername");*/
         /*String responseJson = new ResponseJson().success()
@@ -93,7 +94,7 @@ public class ChatServiceImpl implements ChatService{
                     .setData("type", ChatType.GROUP_SENDING)
                     .toString();
             groupInfo.getMembers().stream()
-                .forEach(member -> { 
+                .forEach(member -> {
                     ChannelHandlerContext toCtx = Constant.onlineUserMap.get(member.getUserId());
                     if (toCtx != null && !member.getUserId().equals(fromUserId)) {
                         sendMessage(toCtx, responseJson);
@@ -109,12 +110,12 @@ public class ChatServiceImpl implements ChatService{
         while(iterator.hasNext()) {
             Entry<String, ChannelHandlerContext> entry = iterator.next();
             if (entry.getValue() == ctx) {
-                LOGGER.info("正在移除握手实例...");
+                log.info("正在移除握手实例...");
                 Constant.webSocketHandshakerMap.remove(ctx.channel().id().asLongText());
-                LOGGER.info(MessageFormat.format("已移除握手实例，当前握手实例总数为：{0}"
+                log.info(MessageFormat.format("已移除握手实例，当前握手实例总数为：{0}"
                         , Constant.webSocketHandshakerMap.size()));
                 iterator.remove();
-                LOGGER.info(MessageFormat.format("userId为 {0} 的用户已退出聊天，当前在线人数为：{1}"
+                log.info(MessageFormat.format("userId为 {0} 的用户已退出聊天，当前在线人数为：{1}"
                         , entry.getKey(), Constant.onlineUserMap.size()));
                 break;
             }
@@ -148,6 +149,7 @@ public class ChatServiceImpl implements ChatService{
 
     @Override
     public void fileMsgGroupSend(JSONObject param, ChannelHandlerContext ctx) {
+
         String fromUserId = (String)param.get("fromUserId");
         String toGroupId = (String)param.get("toGroupId");
         String originalFilename = (String)param.get("originalFilename");
@@ -167,7 +169,7 @@ public class ChatServiceImpl implements ChatService{
                     .setData("type", ChatType.FILE_MSG_GROUP_SENDING)
                     .toString();
             groupInfo.getMembers().stream()
-                .forEach(member -> { 
+                .forEach(member -> {
                     ChannelHandlerContext toCtx = Constant.onlineUserMap.get(member.getUserId());
                     if (toCtx != null && !member.getUserId().equals(fromUserId)) {
                         sendMessage(toCtx, responseJson);

@@ -4,5 +4,5 @@ import chatdemo.vo.ResponseJson;
 
 public interface UserInfoService {
 
-    ResponseJson getByUserId(String userId);
+    ResponseJson getUserInofById(String userId);
 }

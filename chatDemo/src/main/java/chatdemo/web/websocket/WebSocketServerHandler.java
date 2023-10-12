@@ -1,9 +1,10 @@
 package chatdemo.web.websocket;
 
 
+import chatdemo.service.ChatService;
+import chatdemo.service.impl.ChatServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
@@ -18,18 +19,20 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import chatdemo.vo.ResponseJson;
-import chatdemo.service.ChatService;
 import chatdemo.util.Constant;
+
+import javax.annotation.Resource;
 
 
 @Component
-@Sharable
+@Sharable  // 标记这是一个可以被多个channel共享的handler
 public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
-    private static Logger log = LoggerFactory.getLogger(WebSocketServerHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(WebSocketServerHandler.class);
     
-    @Autowired
-    private ChatService chatService;
+//    @Resource
+//    private ChatService chatService;
+    private final ChatServiceImpl chatService = new ChatServiceImpl();
 
     /**
      * 描述：读取完连接的消息后，对消息进行处理。
@@ -79,7 +82,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
             log.error("JSON字符串转换出错" + e.getMessage());
         }
         if (param == null) {
-            log.info("请求消息中的参数为空");
+            log.warn("请求消息中的参数为空");
             sendErrorMessage(ctx, "参数为空！");
             return;
         }
@@ -112,7 +115,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.debug("聊天不活跃，删除上下文");
+        log.debug("客户端断开连接，删除上下文");
         chatService.remove(ctx);
     }
    
