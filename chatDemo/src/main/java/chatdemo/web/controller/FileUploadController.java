@@ -32,6 +32,7 @@ public class FileUploadController {
     @CrossOrigin
     @RequestMapping(value = "/upload", method = POST)
     @ResponseBody
+
     public ResponseJson upload(
             @RequestParam(value = "file", required = true) MultipartFile file,
             HttpServletRequest request) {

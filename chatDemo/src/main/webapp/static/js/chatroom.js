@@ -332,7 +332,8 @@
             }
         });
     }
-    
+
+    // 初始化文件上传插件
     $(".myfile").fileinput({
         uploadUrl:"chatroom/upload",
         uploadAsync : true, //默认异步上传
@@ -350,11 +351,13 @@
         msgFilesTooMany : "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
         language : 'zh'
     })
+
     //异步上传返回结果处理
     $('.myfile').on('fileerror', function(event, data, msg) {
         console.log("fileerror");
         console.log(data);
     });
+
     //异步上传返回结果处理
     $(".myfile").on("fileuploaded", function(event, data, previewId, index) {
         

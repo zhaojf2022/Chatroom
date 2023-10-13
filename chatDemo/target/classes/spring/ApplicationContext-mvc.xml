@@ -97,13 +97,14 @@
 
 	
 	<!-- 配置文件上传 -->
-    <bean id="multipartResolver"
-        class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+<!--    <bean id="multipartResolver"-->
+<!--        class="org.springframework.web.multipart.support.StandardServletMultipartResolver">-->
 <!--        <property name="defaultEncoding" value="UTF-8"/>-->
 <!--        <property name="maxUploadSize" value="10485760"/>-->
 <!--        <property name="maxInMemorySize" value="40960"/>-->
-    </bean>
-    <!-- 配置文件上传的 Controller -->
-    <bean id="fileUploadController" class="chatdemo.web.controller.FileUploadController"/>
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; 配置文件上传的 Controller &ndash;&gt;-->
+<!--    <bean id="fileUploadController" class="chatdemo.web.controller.FileUploadController"/>-->
 
 </beans>

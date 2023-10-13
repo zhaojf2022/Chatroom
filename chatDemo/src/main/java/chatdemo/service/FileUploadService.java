@@ -9,4 +9,5 @@ import chatdemo.vo.ResponseJson;
 public interface FileUploadService {
 
     ResponseJson upload(MultipartFile file, HttpServletRequest request);
+
 }

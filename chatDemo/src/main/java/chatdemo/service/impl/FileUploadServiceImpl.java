@@ -6,8 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import chatdemo.web.websocket.WebSocketServerHandler;
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +23,7 @@ public class FileUploadServiceImpl implements FileUploadService{
 
     private final static String SERVER_URL_PREFIX = "http://http://47.95.235.8/:12522/chatdemo/";
     private final static String FILE_STORE_PATH = "uploadFiles";
+    private static final Logger log = LoggerFactory.getLogger(FileUploadServiceImpl.class);
     
     @Override
     public ResponseJson upload(MultipartFile file, HttpServletRequest request) {
