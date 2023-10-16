@@ -86,24 +86,29 @@
                 </div>
             </div>
         </div>
+
+        <!-- 文件上传对话框模板  -->
         <div class="modal fade" id="upload-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <!-- 模板头（标题栏） -->
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">关闭</button>
                         <h3 class="modal-title text-primary">文件上传</h3>
                     </div>
+                    <!-- 模板主体窗口  -->
                     <div class="modal-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">选择文件</label>
-                            <div class="col-sm-9">
-                                <input type="file" name="file" class="col-sm-9 myfile" />
-                                <p class="help-block">注意：文件大小不超过30M</p>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">选择文件</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="file" class="col-sm-9 myfile" />
+                                    <p class="help-block">注意：文件大小不超过30M</p>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                     </div>
+                    <!-- 模板底部  -->
                     <div class="modal-footer">
                             <button id="upload-cancel" class="btn btn-sm btn-muted" data-dismiss="modal">
                             <i class="glyphicon glyphicon-remove"></i> 取消

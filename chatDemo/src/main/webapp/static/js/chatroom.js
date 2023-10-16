@@ -1,3 +1,4 @@
+    // 从接口获取用户信息，在左侧列表中填写用户信息，聊天室信息和好友信息
     function setUserInfo() {
         $.ajax({
             type : 'POST',
@@ -8,10 +9,15 @@
                     console.log("获取用户信息...");
                     if (data.status === 200) {
                         console.log(data);
+                        // 从接口获取的用户信息数据
                         var userInfo = data.data.userInfo;
+
+                        //显示用户的信息
                         userId = userInfo.userId;
                         $("#username").html(userInfo.username);
                         $("#avatarUrl").attr("src", userInfo.avatarUrl);
+
+                        // 设置聊天室列表
                         var groupListHTML = "";
                         var groupList = userInfo.groupList;
                         for (var i = 0; i < groupList.length; i++) {
@@ -25,8 +31,10 @@
                                     '</div>' +
                             '</li>';
                         }
+                        //将所有聊天室的名称填加到左侧列表中
                         $('.conLeft ul').append(groupListHTML);
 
+                        // 设置好友列表
                         var friendListHTML = "";
                         var friendList = userInfo.friendList;
                         for (var i = 0; i < friendList.length; i++) {
@@ -40,7 +48,7 @@
                                     '</div>' +
                             '</li>';
                         }
-                        // 设置好友列表
+                        // 将所有好友的名称填加到左侧列表中
                         $('.conLeft ul').append(friendListHTML);
                         // 绑定好友框点击事件
                         $('.conLeft ul li').on('click', friendLiClickEvent);
@@ -51,7 +59,7 @@
         });
     }
     
-    
+    //设置存储每个用户信息的内存数组
     function setSentMessageMap() {
         sentMessageMap = new SentMessageMap();
         sentMessageMap.put("001", []);
@@ -65,7 +73,8 @@
         sentMessageMap.put("009", []);
         sentMessageMap.put("01", []);
     }
-    
+
+    // 设置websocket连接的相关方法
     var ws = {
 
         // 用户登记到在线用户表
@@ -120,7 +129,7 @@
             }
         },
 
-        // 文件消息单发
+        // 给好友发送文件
         fileMsgSingleSend: function(fromUserId, toUserId, originalFilename, fileUrl, fileSize) {
             if (!window.WebSocket) {
                   return;
@@ -132,7 +141,8 @@
                     "originalFilename" : originalFilename,
                     "fileUrl" : fileUrl,
                     "fileSize" : fileSize,
-                    "type" : "FILE_MSG_SINGLE_SENDING"
+                    "type" : "FILE_MSG_SINGLE_SENDING",
+                    "file": fileUrl
                 };
                 socket.send(JSON.stringify(data));
             } else {
@@ -140,7 +150,7 @@
             }
         },
 
-        // 发送多个文件
+        // 在聊天室中发送文件
         fileMsgGroupSend: function(fromUserId, toGroupId, originalFilename, fileUrl, fileSize) {
             if (!window.WebSocket) {
                   return;
@@ -152,6 +162,7 @@
                     "originalFilename" : originalFilename,
                     "fileUrl" : fileUrl,
                     "fileSize" : fileSize,
+                    "file": fileUrl,
                     "type" : "FILE_MSG_GROUP_SENDING"
                 };
                 socket.send(JSON.stringify(data));
@@ -163,7 +174,8 @@
         registerReceive: function() {
             console.log("userId为 " + userId + " 的用户登记到在线用户表成功！");
         },
-        
+
+        // 在好友窗口中显示接收到的信息
         singleReceive: function(data) {
             // 获取、构造参数
             console.log(data);
@@ -189,7 +201,8 @@
             // 好友列表处理
             processFriendList.receiving(content, $receiveLi);
         },
-        
+
+        // 在聊天室窗口中显示接收到的信息
         groupReceive: function(data) {
             // 获取、构造参数
             console.log(data);
@@ -221,7 +234,8 @@
             // 好友列表处理
             processFriendList.receiving(content, $receiveLi);
         },
-        
+
+        // 在好友窗口中显示接收到的文件
         fileMsgSingleRecieve: function(data) {
             // 获取、构造参数
             console.log(data);
@@ -260,7 +274,8 @@
             // 好友列表处理
             processFriendList.receiving(content, $receiveLi);
         },
-        
+
+        // 在聊天室窗口中显示接收到的文件
         fileMsgGroupRecieve: function(data) {
             // 1. 获取、构造参数
             console.log(data);
@@ -310,7 +325,8 @@
             socket.close();
         }
     };
-    
+
+    //退出登录
     function logout() {
         // 1. 关闭websocket连接
         ws.remove();
@@ -335,7 +351,7 @@
 
     // 初始化文件上传插件
     $(".myfile").fileinput({
-        uploadUrl:"chatroom/upload",
+        uploadUrl:"chatroom/uploadFile",
         uploadAsync : true, //默认异步上传
         showUpload : true, //是否显示上传按钮,跟随文本框的那个
         showRemove : false, //显示移除按钮,跟随文本框的那个

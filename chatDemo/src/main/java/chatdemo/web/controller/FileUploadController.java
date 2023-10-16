@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import chatdemo.service.FileUploadService;
 import chatdemo.vo.ResponseJson;
 
+import java.io.IOException;
+
 
 @Controller
 @RequestMapping("/chatroom")
@@ -37,5 +39,13 @@ public class FileUploadController {
             @RequestParam(value = "file", required = true) MultipartFile file,
             HttpServletRequest request) {
         return fileUploadService.upload(file, request);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/uploadFile", method = POST)
+    @ResponseBody
+
+    public ResponseJson uploadFile(HttpServletRequest request) throws IOException {
+        return fileUploadService.uploadFile(request);
     }
 }
