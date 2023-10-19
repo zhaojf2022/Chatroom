@@ -26,18 +26,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ClientTask extends Application implements Serializable, EventHandler<ActionEvent>  {
+    @Serial
     private static final long serialVersionUID = 1L;
-    private Integer count = 2;
-    private String[] buttontxt = {"发送","发送文件","视频通话","音频通话"};
+    private final Integer count = 2;
+    private final String[] buttontxt = {"发送","发送文件","视频通话","音频通话"};
 
-    private ListView<Object> listView;
-    private ImageView imageView = new ImageView();
+    private final ImageView imageView = new ImageView();
 
-    private Text text = new Text("用户聊天窗口");
-    private String user_name = "李四";
-    private Button[] button = new Button[buttontxt.length];
+    private final Text text = new Text("用户聊天窗口");
+    private final String user_name = "李四";
+    private final Button[] button = new Button[buttontxt.length];
     private TextArea textarea = new TextArea();
-    private FileChooser fileChooser = new FileChooser();
+    private final FileChooser fileChooser = new FileChooser();
 
     private Alert alertss = new Alert(AlertType.INFORMATION);
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -148,7 +148,7 @@ public class ClientTask extends Application implements Serializable, EventHandle
         this.stage = primaryStage;
         alertss.setTitle("客户端系统提示");
         contentLabelList.add(sdf.format(new Date(System.currentTimeMillis())) + ":");
-        listView = new ListView<Object>(FXCollections.observableArrayList(contentLabelList));
+        ListView listView = new ListView<Object>(FXCollections.observableArrayList(contentLabelList));
         listView.getStylesheets().add(getClass().getResource("/javafx/listview.css").toExternalForm());
         HBox hroot = new HBox(10);
         hroot.getChildren().addAll(button[0],button[1],button[2],button[3]);
